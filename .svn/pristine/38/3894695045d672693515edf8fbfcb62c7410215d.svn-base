@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+abbr,address,article,aside,b,body,canvas,code,dd,del,div,dl,dt,em,fieldset,footer,form,h1,h2,h3,h4,h5,h6,header,html,i,iframe,img,label,li,nav,object,ol,p,pre,samp,section,small,span,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,ul,video{margin:0;padding:0;outline:0;border:0;background:0 0;}
+body{text-align:justify;text-justify:inter-ideograph;line-height:1}
+article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block}
+table{border-collapse:collapse;border-spacing:0}
+li{list-style:none}
+a{margin:0;padding:0;border:0;background:0 0;vertical-align:baseline;text-decoration:none;}
+a{-webkit-tap-highlight-color:transparent}
+i,cite,em,var,address,dfn{font-style:normal;}
+button,input,select,textarea{outline:0;vertical-align:middle}
+input{position:relative;*top:1px;margin:0 4px 0 0;*margin:0 0 0 -4px;}
+textarea{font-size:13px;resize:none}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+a:focus{outline:0;-moz-outline:none}
+:link img,:visited img,img{border:none}
+:focus{outline:0}
+.clear{clear:both}
+.clearfix:after,.clearfix:before{content:" ";display:table}
+.clearfix:after{clear:both}
+.clearfix {*zoom: 1}
+.fl,.pull-left{float:left;display:inline-block}
+.fr,.pull-right{float:right;display:inline-block;}
+body{
+	font-family: "Microsoft YaHei";
+	font-size: 14px;
+	color: #666;
+	word-break:break-all;
+}
+/*常用文字颜色   41b0fe*/
+.font-error{color: #ff878c;}
+.font-correct{color: #97e599;}
+.color_yello{ color: #f3d857;}
+.color_blue{ color: #41b0fe;}
+.bg_blue{background: #41b0fe !important;}
+.bg_yellow{background: #f3d857 !important;}
+
+/***************  距离部分******************/
+.mt5{margin-top:5px;}.mt10{margin-top:10px;}.mt15{margin-top:15px;}.mt20{margin-top:20px;}.mt30{margin-top:30px;}.mt40{margin-top:40px;}.mt50{margin-top:50px;}.mt60{margin-top:60px;}
+.ml5{margin-left:5px;}.ml10{margin-left:10px;}.ml15{margin-left:15px;}.ml20{margin-left:20px;}.ml30{margin-left:30px;}.ml40{margin-left:40px;}.ml50{margin-left:50px;}.ml60{margin-left:60px;}.ml90{margin-left: 90px;}.ml100{margin-left: 100px;}.ml120{margin-left: 120px;}
+.mb5{margin-bottom:5px;}.mb10{margin-bottom:10px;}
+.mr5{margin-right: 5px;}.mr10{margin-right: 10px;}.mr15{margin-right: 15px;}.mr20{margin-right: 20px;}
+.ml0{margin-left: 0 !important;}
+/***************  块级******************/
+.inline-block{display: inline-block;}
+.show{display: block;}
+.hide{display: none;}
+/***************  字体******************/
+.font-bold{font-weight: bold;}
+.font-normal{font-weight: normal;}
+.fs16{font-size: 16px}
+.fs14{font-size: 14px}
+.fs18{font-size: 18px}
+
+
+
+
+
+
+
+
+
+
+

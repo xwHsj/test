@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<title>华热能管系统</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	
+	<!-- bootstrap & fontawesome -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="assets/css/font-awesome.css" />
+
+	<!-- text fonts -->
+	<link rel="stylesheet" href="assets/css/ace-fonts.css" />
+
+	<!-- ace styles -->
+	<link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+	<!-- page specific plugin styles -->
+	<link rel="stylesheet" href="css/huarestyle.css" />
+	<link rel="stylesheet" href="css/homemian.css" />
+
+	<!--[if lte IE 9]>
+		<link rel="stylesheet" href="assets/css/ace-part2.css" class="ace-main-stylesheet" />
+	<![endif]-->
+
+	<!--[if lte IE 9]>
+	  <link rel="stylesheet" href="assets/css/ace-ie.css" />
+	<![endif]-->
+
+	<!-- ace settings handler -->
+	<script src="assets/js/ace-extra.js"></script>
+
+	<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+	<!--[if lte IE 8]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.js"></script>
+	<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="js/Bsie/selectivizr.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<div id="header"><!--头部导航load加载--></div>
+	
+	<div class="main-container">
+		<div class="clearfix row no-margin index_header">
+		
+			<!--面包屑导航-->
+			<div class="bread-crumb pull-left">
+				当前位置：<a href="javascript:;">[<var class="xmhpg"  style="color: #666;">首页 - 能源流概况</var>]</a>
+			</div>
+			
+			<div class="mianTop pull-right">
+				<div class="selectbg clearfix col-lg-12">
+					
+					<div class="select-box">
+						<div class="clearfix h-selectbox">
+							<div class="x-selectfree fl">
+								<div class="x-sfbgbox">
+									<div class="x-sfleft1 x-sfw1">
+										<input type="text" value="集团总览" readonly="readonly">
+									</div>
+									<div class="x-sfright1"></div>
+								</div>
+								<div class="x-sfoption x-sfoption1">
+									<p value="1111">北京公司</p>
+									<p value="2222">上海公司</p>
+									<p value="3333">南京集团</p>
+								</div>
+								<input type="hidden" value="1111"/>
+							</div>
+						</div>
+					</div>
+					<div class="select-box select-boxbtnAlarm clearfix">
+						<a href="javascript:;" class="btnAlarm btnAlarm-on">集中供暖</a>	
+						<a href="javascript:;" class="btnAlarm ">区域供暖</a>	
+					</div>
+					
+					<div class="select-box select-boxbtnAlarm clearfix">
+						<a href="javascript:;" class="btnAlarm ">本年度</a>	
+						<a href="javascript:;" class="btnAlarm btnAlarm-on">本采暖季</a>	
+						<a href="javascript:;" class="btnAlarm ">自定义</a>	
+					</div>
+					<div class="select-box select-boxWdate">
+						<input id="begin" class="Wdate time-input time-input-disable" value="2017-05-01" type="text" onFocus="var end=$dp.$('end');WdatePicker({onpicked:function(){end.focus();},readOnly:true,maxDate:'#F{$dp.$D(\'end\')}'})"/>
+						<span>至</span>
+						<input id="end" class="Wdate time-input time-input-disable" value="2017-05-08" type="text" onFocus="WdatePicker({readOnly:true,minDate:'#F{$dp.$D(\'begin\')}'})"/>
+					</div>
+					
+				</div>	
+			</div>
+		</div>
+		<div class="index_mainbody  ">
+			<div class="clearfix" style="overflow: hidden;">
+				<div class="index_menu col-lg-12 no-padding">
+					<div class=" col-lg-2 no-padding">
+						<div class="index_menuBox index_menuBoxAll">
+							<div class="index_menuBoxCon">
+								<span>能源流</span><span class="tipsindex">999</span>
+							</div>
+							<ul class="index_menuBoxList clearfix">
+								<li class="tabicon01">4000GJ</li>
+								<li class="tabicon02">2000T</li>
+								<li class="tabicon03">8000万元</li>
+								<li class="tabicon04">20GJ/㎡</li>
+								<li class="tabicon05">20GJ/㎡</li>
+								<li class="tabicon06">8000万㎡</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 no-padding">
+						<div class="index_menuBox index_menuBoxre index_menuBoxre">
+							<div class="index_menuBoxCon">
+								<span>供热源</span><span class="tipsindex">259</span>
+							</div>
+							<ul class="index_menuBoxList clearfix">
+								<li class="tabicon01">4000GJ</li>
+								<li class="tabicon02">2000T</li>
+								<li class="tabicon03">8000万元</li>
+							</ul>
+						</div>
+					</div>
+					<div class=" col-lg-2 no-padding">
+						<div class="index_menuBox index_menuBoxweb index_menuBoxre">
+							<div class="index_menuBoxCon">
+								<span>管网</span><span class="tipsindex">169</span>
+							</div>
+							<ul class="index_menuBoxList clearfix">
+								<li class="tabicon07">4000km</li>
+								<li class="tabicon09">2000km</li>
+								<li class="tabicon03">8000万元</li>
+							</ul>
+						</div>
+					</div>
+					<div class=" col-lg-2 no-padding">
+						<div class="index_menuBox index_menuBoxsite index_menuBoxre">
+							<div class="index_menuBoxCon">
+								<span>换热站</span><span class="tipsindex">1069</span>
+							</div>
+							<ul class="index_menuBoxList clearfix">
+								<li class="tabicon01">4000GJ</li>
+								<li class="tabicon02">2000T</li>
+								<li class="tabicon03">8000万元</li>
+							</ul>
+						</div>
+					</div>
+					<div class=" col-lg-2 no-padding">
+						<div class="index_menuBox index_menuBoxline index_menuBoxre">
+							<div class="index_menuBoxCon">
+								<span>管线</span><span class="tipsindex">320</span>
+							</div>
+							<ul class="index_menuBoxList clearfix">
+								<li class="tabicon07">4000km</li>
+								<li class="tabicon09">2000km</li>
+								<li class="tabicon03">8000万元</li>
+							</ul>
+						</div>
+					</div>
+					<div class=" col-lg-2 no-padding">
+						<div class="index_menuBox index_menuBoxjum index_menuBoxre">
+							<div class="index_menuBoxCon">
+								<span>民户</span><span class="tipsindex">30</span>
+							</div>
+							<ul class="index_menuBoxList clearfix">
+								<li class="tabicon07">4000GJ</li>
+								<li class="tabicon08">67.9%</li>
+								<li class="tabicon03">80万元</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="index_content row no-margin">
+				<div class="col-lg-12 no-padding">
+					<div class="col-lg-4 mb14">
+						<div class="index_contentBox">
+							<div class="titbox clearfix no-padding no-margin">
+								<div class="pull-left energyTit"><i></i>能耗明细<small class="font-sm">Energy Consumption</small></div>
+							</div> 
+							<div class="energyBox row no-margin">
+								<div class="EnergyChartBg col-lg-10">
+									<div class="EnergyChart" id="EnergyChart"></div>
+								</div>
+								<div class="col-lg-3 EnergyChartText">
+									<div class="">276.9</div>
+									<div class="">能耗总量 (GJ)<br>(1.6%↑)</div>
+									<div class="">276.9</div>
+									
+									
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div class=" col-lg-4 mb14">
+						<div class="index_contentBox">
+							<div class="titbox clearfix no-padding no-margin">
+								<div class="pull-left totalTit energyTit"><i></i>成本明细<small class="font-sm">Total cost</small></div>
+							</div>  
+							<div class="energyBox TotalBox">
+								
+							</div>
+							
+						</div>
+					</div>
+					<div class=" col-lg-4 mb14">
+						<div class="index_contentBox">
+							<div class="titbox clearfix no-padding no-margin">
+								<div class="pull-left CarbonTit energyTit"><i></i>碳排放总量<small class="font-sm">Carbon emissions</small></div>
+							</div>  
+							<div class="energyBox CarbonBox">
+								
+							</div>
+							
+						</div>
+					</div>
+					<div class=" col-lg-4">
+						<div class="index_contentBox">
+							<div class="titbox clearfix no-padding no-margin">
+								<div class="pull-left carbonTit energyTit"><i></i>单耗趋势<small class="font-sm">Comparison of Energy</small></div>
+							</div>  
+							<div class="energyBox ComparisonBox">
+								<div class="chart-box">
+									<div class="cb-header">
+										<span class="cb-title">单耗 (单位: GJ/㎡)</span>
+										<div class="cb-title-right">
+											<label>
+												<span class="cb-legend-blue"></span>
+												今年
+											</label>
+											<label>
+												<span class="cb-legend-gray"></span>
+												去年
+											</label>
+										</div>
+									</div>
+									<div id="chart01" class="chart"></div>			
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class=" col-lg-4">
+						<div class="index_contentBox">
+							<div class="titbox clearfix no-padding no-margin">
+								<div class="pull-left carbonTit energyTit"><i></i>成本对比<small class="font-sm">Cost comparison</small></div>
+							</div>  
+							<div class="energyBox comparisonBox">
+								<div class="chart-box">
+									<div class="cb-header">
+										<span class="cb-title" id="nh-title" >分公司成本 (单位: 万元)</span>
+										<span class="cb-title" id="qs-title" style="display: none;">成本 (单位: 万元)</span>
+										<div class="cb-title-right clearfix">
+											<span class="cb-cut-date">
+												<a href="javascript:selectYear(-1);"><img src="img/icons/icon001.png" /></a>
+												<label id="branchcost-year">2016年</label> 
+												<a href="javascript:selectYear(1);"><img src="img/icons/icon002.png" /></a>
+											</span>
+											
+											<span class="button-group">
+												<a href="javascript:cutNh();" id="bg-left" class="bg-left button-group-act">能耗</a><a href="javascript:cutQs();" id="bg-right" class="bg-right">趋势</a>
+											</span>
+										</div>
+									</div>
+									<div id="chart02" class="chart"></div>
+									<div id="chart04" class="chart" style="display: none;"></div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class=" col-lg-4">
+						<div class="index_contentBox">
+							<div class="titbox clearfix no-padding no-margin">
+								<div class="pull-left carbonTit energyTit"><i></i>碳排放趋势<small class="font-sm">Comparison of carbon</small></div>
+							</div>  
+							<div class="energyBox carbonBox">
+								<div class="chart-box">
+									<div class="cb-header">
+										<span class="cb-title">碳排放(单位: m³)</span>
+										<div class="cb-title-right">
+											<label>
+												<span class="cb-legend-blue"></span>
+												今年
+											</label>
+											<label>
+												<span class="cb-legend-gray"></span>
+												去年
+											</label>
+										</div>
+									</div>
+									<div id="chart03" class="chart"></div>			
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div> <!-- <div class="index_contentList">-->
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="footer"><!--footerload加载--></div>
+	
+
+	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/echarts/echarts3/echarts.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="js/My97DatePicker/WdatePicker.js"></script>
+
+	<script src="js/public.js"></script>
+	
+	<script src="js/index.js"></script>
+	
+	
+	<!-- inline scripts related to this page -->
+	<script>
+		$(function(){
+
+			$("#header").load("header.html",function(){});
+			$("#footer").load("footer.html",function(){});
+			
+			$(".select-boxbtnAlarm .btnAlarm").click(function(){
+				$(this).addClass("btnAlarm-on").siblings().removeClass("btnAlarm-on")
+			});
+		})
+	</script>
+	<script>
+		/*能耗明细*/
+		var myChartEnergy = echarts.init(document.getElementById('EnergyChart'));
+		var option1 = {
+			tooltip : {
+				formatter: "{a} <br/>{c} {b}%"
+			},
+		   	
+			series : [
+				{
+					name: '能耗',
+					type: 'gauge',
+					z: 3,
+					min: 0,
+					max: 100,
+					startAngle: 180,
+					endAngle: 0,
+					//splitNumber: -1,
+					radius: '100%',
+				   	axisLine:{
+						show:true,
+						lineStyle:{
+						  color:[[0.2, '#000'], [0.8, '#3a97dd'], [1, '#de6049']],  
+						  width:10
+						},
+					},
+					itemStyle:{
+						normal:{
+							color:'#d44243',
+						},
+					},
+					
+					detail:{
+						show:false,
+					},
+					data:[{value: "60"}]
+				},
+				
+			]
+		};
+		
+		myChartEnergy.setOption(option1);
+	
+	</script>
+</body>
+</html>

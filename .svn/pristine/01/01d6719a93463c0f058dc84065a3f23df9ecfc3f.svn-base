@@ -1,0 +1,537 @@
+<!Doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<title>临时</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+		
+	<link href="css/commin.css" rel="stylesheet" type="text/css" />
+	<link href="css/huarestyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background-color: #f0f1f3;">
+	
+	<div>
+		<div class="chart-box">
+			<div class="cb-header">
+				<span class="cb-title">单耗 (单位: GJ/㎡)</span>
+				<div class="cb-title-right">
+					<label>
+						<span class="cb-legend-blue"></span>
+						今年
+					</label>
+					<label>
+						<span class="cb-legend-gray"></span>
+						去年
+					</label>
+				</div>
+			</div>
+			<div id="chart01" class="chart"></div>			
+		</div>
+		
+		<div class="chart-box">
+			<div class="cb-header">
+				<span class="cb-title" id="nh-title" >分公司成本 (单位: 万元)</span>
+				<span class="cb-title" id="qs-title" style="display: none;">成本 (单位: 万元)</span>
+				<div class="cb-title-right clearfix">
+					<span class="cb-cut-date">
+						<a href="javascript:selectYear(-1);"><img src="img/icons/icon001.png" /></a>
+						<label id="branchcost-year">2016年</label> 
+						<a href="javascript:selectYear(1);"><img src="img/icons/icon002.png" /></a>
+					</span>
+					
+					<span class="button-group">
+						<a href="javascript:cutNh();" id="bg-left" class="bg-left button-group-act">能耗</a><a href="javascript:cutQs();" id="bg-right" class="bg-right">趋势</a>
+					</span>
+				</div>
+			</div>
+			<div id="chart02" class="chart"></div>
+			<div id="chart04" class="chart" style="display: none;"></div>
+		</div>
+		
+		
+		<div class="chart-box">
+			<div class="cb-header">
+				<span class="cb-title">碳排放(单位: m³)</span>
+				<div class="cb-title-right">
+					<label>
+						<span class="cb-legend-blue"></span>
+						今年
+					</label>
+					<label>
+						<span class="cb-legend-gray"></span>
+						去年
+					</label>
+				</div>
+			</div>
+			<div id="chart03" class="chart"></div>			
+		</div>
+		
+	</div>
+	
+	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/echarts/echarts3/echarts.min.js"></script>
+	<script>
+		$.ajax({
+			url : "json/h-1.json",
+			type : "GET",
+			dataType: "json",
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data) {
+				chart01Fun(data.data.pieceYardage.data, data.data.pieceYardage.yearDate, data.data.pieceYardage.other);
+				
+				chart02Fun(data.data.branchCost.data, data.data.branchCost.yearDate, data.data.branchCost.other);
+				
+				chart03Fun(data.data.carbonEmission.data, data.data.carbonEmission.yearDate);
+				
+				chart04Fun(data.data.branchCost.data, data.data.branchCost.yearDate, data.data.cost.other);
+			}
+		});
+		
+		/*折线图*/
+		function chart01Fun(datalist, datelist, other){
+			$("#chart01").empty();
+			chart01 = echarts.init(document.getElementById('chart01')); 
+			var option = {
+				tooltip: {
+			        trigger: 'axis'
+			    },
+			    grid: {
+			        left: '15',
+			        top: '10',
+			        right: '40',
+			        bottom: '10',
+			        containLabel: true
+			    },
+			    xAxis: {
+			        type: 'category',
+			        boundaryGap: false,
+			        axisTick:{show:false},
+		            splitLine: {
+						show: false,
+					},
+					axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					axisLabel : {
+		                show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial',
+		                }
+		            },
+			        data: datelist
+			        
+			    },
+			    yAxis: {
+			        type: 'value',
+			        axisTick:{show:false},
+		            axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					splitLine: {
+						show: false,
+						lineStyle: {
+							color: '#e8e8e8',
+							type: 'dashed'
+						}
+					},
+					axisLabel: {
+			            show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial'
+		                }
+			        },
+			    },
+			    color:['#3B96DD', '#c2ccd3'],
+			    series: []
+			}
+			$.each(datalist,function(index,value){
+				var typeName = value.typeName;
+				var typeLine = "";
+				if(index == 0){
+					typeLine = "solid";
+
+				}
+				if(index == 1){
+					typeLine = "dashed";
+				}
+				var item = {
+					name:typeName,
+					type:'line',
+		            symbol: 'circle',
+		            smooth: false,
+					lineStyle:{normal:{type:typeLine}},
+					data:value.dataList
+				}
+
+				option.series.push(item);
+			});
+			
+			//配置上限值 下限值  今年平均值
+			var upperList = [];
+			var lowerList = [];
+			var averageList = [];
+			var labelStyle= {
+                normal: {
+                    show: true,
+                    position:'right',
+                    textStyle:{color:'#666666'},
+                    formatter:function(params){
+                        if(params.dataIndex == datelist.length - 1){
+                        	console.log(params.data);
+                            return params.data
+                        }else{
+                            return ""
+                        }
+                    
+                    }
+                }
+            }
+			$.each(datelist,function(index,value){
+				upperList.push(parseFloat(other.upperLimit.data))
+				lowerList.push(parseFloat(other.lowerLimit.data))
+				averageList.push(parseFloat(other.average.data))
+			})
+			option.series.push({
+					name:other.upperLimit.typeName,
+					type:'line',
+					symbolSize:1,
+					lineStyle:{normal:{type:'dashed',color:'#e8afa6'}},
+					label:labelStyle,
+					data:upperList
+			});
+			option.series.push({
+					name:other.lowerLimit.typeName,
+					type:'line',
+					symbolSize:1,
+					lineStyle:{normal:{type:'dashed',color:'#9ad9d7'}},
+					label:labelStyle,
+					data:lowerList
+			});
+			option.series.push({
+					name:other.average.typeName,
+					type:'line',
+					symbolSize:1,
+					lineStyle:{normal:{type:'dashed',color:'#3B96DD'}},
+					label:labelStyle,
+					data:averageList
+			});
+			chart01.setOption(option);
+		}
+		
+		/*折线图*/
+		function chart02Fun(datalist, datelist, other){
+			$("#branchcost-year").html(other.year);
+			$("#chart02").empty();
+			chart02 = echarts.init(document.getElementById('chart02')); 
+			var option = {
+				tooltip: {
+			        trigger: 'axis'
+			    },
+			    grid: {
+			        left: '15',
+			        top: '10',
+			        right: '45',
+			        bottom: '10',
+			        containLabel: true
+			    },
+			    xAxis: {
+			        type: 'category',
+			        axisTick:{show:false},
+		            splitLine: {
+						show: false,
+					},
+					axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					axisLabel : {
+		                show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial',
+		                }
+		            },
+			        data: datelist
+			        
+			    },
+			    yAxis: {
+			        type: 'value',
+			        axisTick:{show:false},
+		            axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					splitLine: {
+						show: false,
+						lineStyle: {
+							color: '#e8e8e8',
+							type: 'dashed'
+						}
+					},
+					axisLabel: {
+			            show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial'
+		                }
+			        },
+			    },
+			    color:['#3B96DD'],
+			    series: []
+			}
+			$.each(datalist,function(index,data){
+				var typeName = data.typeName;
+				var item = {
+					name:typeName,
+					type:'bar',
+		            markLine: {
+		                data: [
+		                    {type: 'average', name: '平均值'}
+		                ]
+		          	},
+					data:data.dataList
+				}
+				option.series.push(item);
+			});
+			
+			chart02.setOption(option);
+		}
+		
+		/*柱图*/
+		function chart03Fun(datalist,datelist){
+			$("#chart03").empty();
+			chart03 = echarts.init(document.getElementById('chart03')); 
+			var option = {
+				tooltip: {
+			        trigger: 'axis'
+			    },
+			    grid: {
+			        left: '15',
+			        top: '10',
+			        right: '40',
+			        bottom: '10',
+			        containLabel: true
+			    },
+			    xAxis: {
+			        type: 'category',
+			        boundaryGap: false,
+			        axisTick:{show:false},
+		            splitLine: {
+						show: false,
+					},
+					axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					axisLabel : {
+		                show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial',
+		                }
+		            },
+			        data: datelist
+			        
+			    },
+			    yAxis: {
+			        type: 'value',
+			        axisTick:{show:false},
+		            axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					splitLine: {
+						show: false,
+						lineStyle: {
+							color: '#e8e8e8',
+							type: 'dashed'
+						}
+					},
+					axisLabel: {
+			            show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial'
+		                }
+			        },
+			    },
+			    color:['#3B96DD', '#c2ccd3'],
+			    series: []
+			}
+			$.each(datalist,function(index,data){
+				var typeName = data.typeName;
+				var typeLine = "";
+				if(index == 0){
+					typeLine = "solid";
+				}
+				if(index == 1){
+					typeLine = "dashed";
+				}
+				var item = {
+					name:typeName,
+					type:'line',
+		            symbol: 'circle',
+		            smooth: false,
+					lineStyle:{normal:{type:typeLine}},
+					data:data.dataList
+				}
+				option.series.push(item);
+			});
+			chart03.setOption(option);
+		}
+		
+		/*折线图*/
+		function chart04Fun(datalist,datelist, year){
+			$("#branchcost-year").html(other.year);
+			$("#chart04").empty();
+			chart04 = echarts.init(document.getElementById('chart04')); 
+			var option = {
+				tooltip: {
+			        trigger: 'axis'
+			    },
+			    grid: {
+			        left: '15',
+			        top: '10',
+			        right: '40',
+			        bottom: '10',
+			        containLabel: true
+			    },
+			    xAxis: {
+			        type: 'category',
+			        boundaryGap: false,
+			        axisTick:{show:false},
+		            splitLine: {
+						show: false,
+					},
+					axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					axisLabel : {
+		                show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial',
+		                }
+		            },
+			        data: datelist
+			        
+			    },
+			    yAxis: {
+			        type: 'value',
+			        axisTick:{show:false},
+		            axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#9a9a9b'
+						}
+					},
+					splitLine: {
+						show: false,
+						lineStyle: {
+							color: '#e8e8e8',
+							type: 'dashed'
+						}
+					},
+					axisLabel: {
+			            show:true,
+		                textStyle: {
+		                    color: '#666',
+			            	fontFamily: 'arial'
+		                }
+			        },
+			    },
+			    color:['#3B96DD', '#c2ccd3'],
+			    series: []
+			}
+			$.each(datalist,function(index,data){
+				var typeName = data.typeName;
+				var typeLine = "";
+				if(index == 0){
+					typeLine = "solid";
+				}
+				if(index == 1){
+					typeLine = "dashed";
+				}
+				var item = {
+					name:typeName,
+					type:'line',
+		            symbol: 'circle',
+		            smooth: false,
+					lineStyle:{normal:{type:typeLine}},
+					data:data.dataList
+				}
+				option.series.push(item);
+			});
+			chart04.setOption(option);
+		}
+		
+		
+		function cutNh(){
+			if($("#bg-left").hasClass("button-group-act")) return;
+			$("#bg-right").removeClass("button-group-act");
+			$("#bg-left").addClass("button-group-act");
+			
+			$("#qs-title").hide();
+			$("#nh-title").show();
+			
+			$("#chart04").hide();
+			$("#chart02").show();
+			
+			
+		}
+		function cutQs(){
+			if($("#bg-right").hasClass("button-group-act")) return;
+			$("#bg-left").removeClass("button-group-act");
+			$("#bg-right").addClass("button-group-act");
+			
+			$("#nh-title").hide();
+			$("#qs-title").show();
+			
+			$("#chart02").hide();
+			$("#chart04").show();
+		}
+		
+		function selectYear(changeYear){
+			$.ajax({
+				url : "json/h-2.json",
+				data: parseInt(("#branchcost-year").html()) + changeYear,
+				type : "GET",
+				dataType: "json",
+				error : function(request) {
+					alert("Connection error");
+				},
+				success : function(data) {
+					chart02Fun(data.data.branchCost.data, data.data.branchCost.yearDate, data.data.branchCost.other);
+	
+					chart04Fun(data.data.branchCost.data, data.data.branchCost.yearDate, data.data.cost.other);
+				}
+			});
+		}
+	</script>
+</body>
+</html>
